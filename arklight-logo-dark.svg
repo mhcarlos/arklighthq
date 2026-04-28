@@ -1,0 +1,12 @@
+<svg width="280" height="50" viewBox="0 0 280 50" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arklight">
+  <title>Arklight</title>
+  <defs>
+    <linearGradient id="gd" x1="0" y1="1" x2="0" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#4dd8f4"/>
+      <stop offset="100%" stop-color="#9b6ee8"/>
+    </linearGradient>
+  </defs>
+  <polygon points="18,5 4,33 18,23" fill="#2e3a52"/>
+  <polygon points="18,5 32,33 18,23" fill="url(#gd)"/>
+  <text x="40" y="32" font-family="'DM Sans', system-ui, sans-serif" font-size="28" font-weight="400" fill="#f0ede8" letter-spacing="-0.6">Arklight</text>
+</svg>
