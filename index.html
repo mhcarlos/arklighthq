@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arklight — Product Design & Strategy</title>
+  <meta name="description" content="Arklight is a product design and strategy consultancy. Fintech, enterprise SaaS, and AI-driven product work." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0b;
+      --surface: #1a1a19;
+      --surface-hover: #202020;
+      --border: rgba(255,255,255,0.10);
+      --border-hover: rgba(255,255,255,0.22);
+      --border-focus: rgba(125,212,232,0.65);
+      /* WCAG AA on dark bg */
+      --text-primary: #f0ede8;     /* ~14:1 */
+      --text-secondary: #a8a49e;   /* ~5.5:1 — passes AA for large/UI text */
+      --text-label: #b8b4ad;       /* ~6.5:1 on surface */
+      --text-muted: #6e6a65;       /* decorative only */
+      --text-placeholder: #5e5a56; /* placeholder — decorative */
+      --accent-cyan: #7dd4e8;
+      --accent-purple: #a78bd4;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    body { min-height: 100vh; display: flex; flex-direction: column; }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -25vh; left: 38%;
+      transform: translateX(-50%);
+      width: 75vw; height: 65vw;
+      background: radial-gradient(ellipse at center,
+        rgba(125,212,232,0.04) 0%,
+        rgba(167,139,212,0.03) 45%,
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    header {
+      padding: 5.5rem 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .logo {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.05s forwards;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5.5vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.13;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.18s forwards;
+    }
+
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 1.0625rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      max-width: 460px;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.28s forwards;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 4rem 0;
+      opacity: 0;
+      animation: fadeIn 0.6s ease 0.38s forwards;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--text-label);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.42s forwards;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.125rem;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.48s forwards;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-label);
+    }
+
+    input, textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+      -webkit-appearance: none;
+      line-height: 1.5;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: var(--text-placeholder);
+      font-weight: 300;
+    }
+
+    input:hover, textarea:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--border-focus);
+      background: var(--surface-hover);
+      box-shadow: 0 0 0 3px rgba(125,212,232,0.10);
+    }
+
+    textarea { resize: vertical; min-height: 136px; line-height: 1.65; }
+
+    .btn-row {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 0.125rem;
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: #0c0c0b;
+      border: none;
+      border-radius: 7px;
+      padding: 0.75rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    button[type="submit"]:hover { opacity: 0.88; }
+    button[type="submit"]:active { transform: scale(0.98); }
+    button[type="submit"]:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; }
+    button[type="submit"]:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .submit-note {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .success-msg {
+      display: none;
+      border: 1px solid rgba(125,212,232,0.2);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 0.5rem;
+      background: rgba(125,212,232,0.04);
+    }
+    .success-msg.visible { display: block; }
+    .success-msg p { font-size: 1rem; color: var(--accent-cyan); font-weight: 500; }
+    .success-msg span { display: block; font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.3rem; }
+
+    footer {
+      margin-top: auto;
+      padding: 3rem 0 2.5rem;
+      opacity: 0;
+      animation: fadeIn 0.6s ease 0.65s forwards;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+
+    .footer-copy { font-size: 0.8125rem; color: var(--text-muted); font-weight: 400; }
+
+    .footer-email {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-email:hover { color: var(--accent-cyan); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @media (max-width: 520px) {
+      header { padding: 3.5rem 0 0; }
+      .field-row { grid-template-columns: 1fr; }
+      .btn-row { flex-direction: column; align-items: flex-start; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="wrap">
+    <header>
+
+      <!--
+        SVG logo — dark-mode faithful recreation.
+        Mark: two-facet forward arrow.
+          Left facet:  dark slate #3a4459
+          Right facet: cyan→purple gradient matching original
+        Wordmark: DM Sans 400 in --text-primary
+      -->
+      <svg class="logo" width="168" height="38" viewBox="0 0 168 38" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arklight">
+        <title>Arklight</title>
+        <defs>
+          <linearGradient id="g1" x1="11" y1="34" x2="21" y2="2" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7dd4e8"/>
+            <stop offset="100%" stop-color="#a78bd4"/>
+          </linearGradient>
+        </defs>
+        <!-- Left dark facet: bottom-left → apex → centroid -->
+        <polygon points="1,34 11,2 19,19" fill="#3a4459"/>
+        <!-- Right gradient facet: apex → bottom-right → centroid -->
+        <polygon points="11,2 21,34 19,19" fill="url(#g1)"/>
+        <!-- Wordmark -->
+        <text x="31" y="26.5" font-family="'DM Sans', system-ui, sans-serif" font-size="23" font-weight="400" fill="#f0ede8" letter-spacing="-0.4">Arklight</text>
+      </svg>
+
+      <h1>Where rigorous craft<br/>meets <em>clear thinking.</em></h1>
+
+      <p class="tagline">Arklight works with fintech, enterprise SaaS, and AI-driven companies to design products that hold up — under complexity, under scale, and under scrutiny.</p>
+    </header>
+
+    <hr class="divider" />
+
+    <section id="contact" aria-labelledby="contact-label">
+      <p class="section-label" id="contact-label">Get in touch</p>
+
+      <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New inquiry via arklighthq.com" />
+
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" placeholder="Optional" autocomplete="organization" />
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me about your project or what you're working on…" required></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" id="submit-btn">Send message</button>
+          <span class="submit-note">Response within 1–2 business days.</span>
+        </div>
+      </form>
+
+      <div class="success-msg" id="success-msg" role="alert" aria-live="polite">
+        <p>Message sent — thank you.</p>
+        <span>You'll hear back within 1–2 business days.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <span class="footer-copy">&copy; 2026 Arklight LLC. New York, NY.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const btn  = document.getElementById('submit-btn');
+    const msg  = document.getElementById('success-msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          form.style.display = 'none';
+          msg.classList.add('visible');
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Send message';
+          alert('Something went wrong. Please try again or email us directly.');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+        alert('Network error. Please try again or email us directly.');
+      }
+    });
+  </script>
+</body>
+</html>
